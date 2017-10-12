@@ -1,0 +1,15 @@
+@import "../../node_modules/bootstrap/scss/variables";
+
+.page-header {
+  padding: 1em;
+  background: $black;
+  color: $white;
+  text-transform: uppercase;
+
+
+  .page-header__title {
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+  }
+}

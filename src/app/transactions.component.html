@@ -1,0 +1,28 @@
+<div *ngIf="transactions && transactions.length">
+  <transactions-nav
+    [transactions]="transactions"
+    [viewCategorised]="viewCategorised"
+    [viewList]="viewList"
+    (onToggleCategorised)="onToggleCategorised($event)"
+    (onToggleListView)="onToggleListView($event)">
+  </transactions-nav>
+
+  <div class="container my-5">
+    <transaction-list
+      [transactions]="transactions"
+      [viewCategorised]="viewCategorised"
+      [viewList]="viewList">
+    </transaction-list>
+
+    <transaction-chart
+      [transactions]="transactions"
+      [viewList]="viewList">
+    </transaction-chart>
+  </div>
+</div>
+
+<div class="container" *ngIf="!transactions || !transactions.length">
+  <p>
+    There are no transactions to show
+  </p>
+</div>

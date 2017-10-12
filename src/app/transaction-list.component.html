@@ -1,0 +1,20 @@
+<div *ngIf="!!viewList">
+  <table class="table table-striped">
+    <thead class="sr-only">
+      <tr>
+        <th>Date</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th class="text-right">Amount</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr
+        *ngFor="let transaction of transactions | categorised:viewCategorised; trackBy: trackById;"
+        transaction-item
+        [transaction]="transaction">
+      </tr>
+    </tbody>
+  </table>
+</div>

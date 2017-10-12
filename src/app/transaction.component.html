@@ -1,0 +1,15 @@
+<td>{{ transaction.date | displayDate }}</td>
+
+<td>
+  <select (change)="changeCategory(transaction)" [(ngModel)]="transaction.category">
+    <option *ngFor="let category of categories" [value]="category.value">{{ category.name }}</option>
+  </select>
+</td>
+
+<td>{{ transaction.description }}</td>
+
+<td
+  class="text-right"
+  [ngClass]="{'negative': isNegative(transaction.amount)}">
+  {{ transaction.amount | currency:'GBP':true }}
+</td>
