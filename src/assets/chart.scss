@@ -1,0 +1,26 @@
+@import "../node_modules/bootstrap/scss/variables";
+
+.chart {
+  padding: 0 1em;
+
+  .chart-bg {
+    fill: $gray-lightest;
+  }
+
+  .chart-fg {
+    fill: #345995;
+  }
+
+  .chart-percent {
+    font-size: $font-size-lg;
+  }
+
+  &:nth-of-type(1) .chart-fg { fill: #345995 }
+  &:nth-of-type(2) .chart-fg { fill: #EAC435 }
+  &:nth-of-type(3) .chart-fg { fill: #E40066 }
+  &:nth-of-type(4) .chart-fg { fill: #03CEA4 }
+  &:nth-of-type(5) .chart-fg { fill: #FB4D3D }
+  &:nth-of-type(6) .chart-fg { fill: #EB5E28 }
+  &:nth-of-type(7) .chart-fg { fill: #A1C349 }
+  &:nth-of-type(8) .chart-fg { fill: #440381 }
+}
