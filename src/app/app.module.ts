@@ -8,6 +8,7 @@ import { UuidModule } from 'ng2-uuid';
 
 import { TransactionService } from './transaction.service';
 
+import { DonutComponent } from './donut.component';
 import { TransactionComponent } from './transaction.component';
 import { TransactionsNavComponent } from './transactions-nav.component';
 import { TransactionListComponent } from './transaction-list.component';
@@ -32,6 +33,7 @@ import { CONSTANTS, BANK_CONFIG } from './constants';
     TransactionsNavComponent,
     TransactionListComponent,
     TransactionChartComponent,
+    DonutComponent,
     CategorisedPipe,
     DisplayDatePipe
   ],

@@ -1,13 +1,19 @@
 export const CONSTANTS = {
+  UNKNOWN_CATEGORY: 'UNKNOWN',
   DATE_FORMAT: 'DD/MM/YYYY',
   TRANSACTION_CATEGORIES: [
-    { name: 'Unknown', value: '' },
-    { name: 'Mortgage', value: 'MORTAGE' },
-    { name: 'Bills', value: 'BILLS' },
-    { name: 'Savings', value: 'SAVINGS' }
+    { label: 'Unknown', value: 'UNKNOWN' },
+    { label: 'Mortgage', value: 'MORTAGE' },
+    { label: 'Bills', value: 'BILLS' },
+    { label: 'Savings', value: 'SAVINGS' },
+    { label: 'Car', value: 'CAR' },
+    { label: 'Insurance', value: 'INSURANCE' },
+    { label: 'Hobbies', value: 'HOBBIES' },
+    { label: 'Fashion', value: 'FASHION' },
+    { label: 'Travel', value: 'TRAVEL' }
   ],
   BANKS: [
-    { name: 'Nationwide', value: 'NATIONWIDE' }
+    { label: 'Nationwide', value: 'NATIONWIDE' }
   ]
 };
 

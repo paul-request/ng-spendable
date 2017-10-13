@@ -26,7 +26,7 @@ export class ImportComponent {
     private transactionService: TransactionService,
     private uuid: Uuid
   ) {
-    this.banks = CONSTANTS.BANKS;
+    this.banks = [...CONSTANTS.BANKS];
   }
 
   onChangeFile(event: any) {
@@ -60,7 +60,7 @@ export class ImportComponent {
 
           const t: Transaction = {
             id: this.uuid.v1(),
-            category: '',
+            category: CONSTANTS.UNKNOWN_CATEGORY,
             date: moment(transaction[0], bankConfig.DATE_FORMAT),
             type: transaction[1],
             description: transaction[2],
@@ -69,6 +69,8 @@ export class ImportComponent {
 
           return [...acc, t];
         }, []);
+
+        console.log('TRANSACTIONS', data)
 
         this.transactionService.sendTransactions(data);
       }

@@ -1,5 +1,12 @@
 <div *ngIf="!viewList">
-  <p>
-    Chart goes here
-  </p>
+  <div class="d-flex justify-content-center flex-wrap">
+    <div
+      class="chart chart--donut"
+      *ngFor="let d of data">
+      <donut
+        [data]="d"
+        [total]="total">
+      </donut>
+    </div>
+  </div>
 </div>

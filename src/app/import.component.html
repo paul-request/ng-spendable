@@ -17,14 +17,14 @@
 
       <div class="form-group">
         <label for="bank-name" class="sr-only">Select a bank</label>
-        
+
         <select
           name="bank-name"
           id="bank-name"
           [(ngModel)]="selectedBank"
           required>
           <option [ngValue]="selectedBank">-- Select your bank/building society --</option>
-          <option *ngFor="let bank of banks" [value]="bank.value">{{ bank.name }}</option>
+          <option *ngFor="let bank of banks" [value]="bank.value">{{ bank.label }}</option>
         </select>
       </div>
 

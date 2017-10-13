@@ -2,7 +2,7 @@
 
 <td>
   <select (change)="changeCategory(transaction)" [(ngModel)]="transaction.category">
-    <option *ngFor="let category of categories" [value]="category.value">{{ category.name }}</option>
+    <option *ngFor="let category of categories" [value]="category.value">{{ category.label }}</option>
   </select>
 </td>
 
