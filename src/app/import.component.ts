@@ -39,7 +39,7 @@ export class ImportComponent {
     Papa.parse(this.file, {
       complete: (results) => {
         const bankConfig = BANK_CONFIG[this.selectedBank];
-        const processCurrency = (credit, debit) => {
+        const processCurrency = (debit, credit) => {
           if (!credit && !debit) return;
 
           const test = credit
@@ -51,7 +51,6 @@ export class ImportComponent {
 
         // TODO: Create factory? to call with bank key, which will return the appropriate
         // function to tun in order to parse the results
-
         const data = results.data.reduce((acc, transaction, index) => {
           const beforeStart = () => index < bankConfig.TRANSACTION_START_ROW;
           const afterEnd = () => transaction.length < bankConfig.TRANSACTION_START_ROW;

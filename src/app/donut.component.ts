@@ -82,7 +82,7 @@ export class DonutComponent implements OnChanges {
       .attr('dy', '-0.75em')
       .attr('class', 'chart-percent')
       .attr('text-anchor', 'middle')
-      .text((d) => `${this.data.count}`);
+      .text((d) => `${this.data.percent}%`);
 
     this.labelText = g.append('text')
       .attr('dy', '0.75em')

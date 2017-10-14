@@ -19,6 +19,7 @@ export class TransactionChartComponent implements OnInit {
 
   categories: any[];
   data: Donut[];
+  total: number;
 
   constructor(
     private categorised: CategorisedPipe
@@ -26,25 +27,30 @@ export class TransactionChartComponent implements OnInit {
     this.categories = [...CONSTANTS.TRANSACTION_CATEGORIES];
   }
 
+  sum(acc, transaction) {
+    if (parseInt(transaction.amount, 10) >= 0) return acc;
+
+    return acc + Math.abs(transaction.amount);
+  }
+
   ngOnInit(): void {
     this.data = this.generateData();
+    this.total = this.transactions.reduce(this.sum, 0);
   }
 
   generateData(): Donut[] {
-    const transactionsTotal = this.transactions
-      .reduce((acc, transaction) => acc + transaction.amount, 0);
-
     return this.categories.reduce((acc, { label, value }) => {
       const transactions = this.transactions.filter(transaction => transaction.category === value)
-      const categoryTotal = transactions.reduce((acc, transaction) => acc + transaction.amount, 0);
-      const percent = (categoryTotal / transactionsTotal) * 100;
+      const categoryTotal = transactions.reduce(this.sum, 0);
+      const percent = (categoryTotal / this.total) * 100;
+      const displayPercent = percent % 1 !== 0 ? percent.toFixed(2) : percent;
 
       return [
         ...acc,
         {
           label,
           count: transactions.length,
-          percent,
+          percent: displayPercent,
           total: categoryTotal
         }
       ];
