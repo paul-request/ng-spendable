@@ -29,19 +29,21 @@
         <div class="btn-toolbar justify-content-end" role="toolbar" aria-label="Toolbar to toggle between list and chart view">
           <button
             type="button"
-            class="btn btn-secondary"
+            class="btn btn-secondary btn-icon"
             *ngIf="!viewList"
             [ngClass]="{'active': viewList}"
             (click)="toggleListView($event)">
+            <i class="icon icon--list"></i>
             List view
           </button>
 
           <button
             type="button"
-            class="btn btn-secondary"
+            class="btn btn-secondary btn-icon"
             *ngIf="!!viewList"
             [ngClass]="{'active': !viewList}"
             (click)="toggleListView($event)">
+            <i class="icon icon--chart"></i>
             Chart view
           </button>
         </div>
