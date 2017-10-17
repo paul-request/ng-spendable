@@ -39,23 +39,15 @@ export class ImportComponent {
     Papa.parse(this.file, {
       complete: (results) => {
         const bankConfig = BANK_CONFIG[this.selectedBank];
-        const processCurrency = (debit, credit) => {
-          if (!credit && !debit) return;
-
-          const test = credit
-            ? parseFloat(credit.substr(1))
-            : 0 - parseFloat(debit.substr(1))
-
-          return test;
-        }
 
         // TODO: Create factory? to call with bank key, which will return the appropriate
         // function to tun in order to parse the results
         const data = results.data.reduce((acc, transaction, index) => {
           const beforeStart = () => index < bankConfig.TRANSACTION_START_ROW;
           const afterEnd = () => transaction.length < bankConfig.TRANSACTION_START_ROW;
+          const amount = transaction[3] ? parseFloat(transaction[3].substr(1)) : null
 
-          if (beforeStart() ||  afterEnd()) return [...acc];
+          if (beforeStart() ||  afterEnd() || !amount) return [...acc];
 
           const t: Transaction = {
             id: this.uuid.v1(),
@@ -63,13 +55,11 @@ export class ImportComponent {
             date: moment(transaction[0], bankConfig.DATE_FORMAT),
             type: transaction[1],
             description: transaction[2],
-            amount: processCurrency(transaction[3], transaction[4])
+            amount
           };
 
           return [...acc, t];
         }, []);
-
-        console.log('TRANSACTIONS', data)
 
         this.transactionService.sendTransactions(data);
       }

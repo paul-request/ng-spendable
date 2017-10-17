@@ -66,21 +66,31 @@ export class DonutComponent implements OnChanges {
       .attr('height', this.height);
 
     const g = svg.append("g")
-      .attr("transform", "translate(" + this.width / 2 + "," + this.height / 2 + ")");
+      .attr('transform', `translate(${this.width / 2},${this.height / 2})`);
 
-    const background = g.append("path")
+    const background = g.append('circle')
+      .attr('cx', 0)
+      .attr('cy', 0)
+      .attr('r', this.width / 2)
+      .attr('class', 'chart__bg')
+
+    if (!this.data.percent) {
+      background.attr('class', 'chart__bg--default');
+    }
+
+    const backgroundArc = g.append("path")
       .datum({ endAngle: this.tau })
-      .attr('class', 'chart-bg')
+      .attr('class', 'chart__arc--bg')
       .attr("d", this.arc);
 
     this.foreground = g.append("path")
       .datum({ endAngle: 0 })
-      .attr('class', 'chart-fg')
+      .attr('class', 'chart__arc--fg')
       .attr("d", this.arc);
 
     this.percentText = g.append('text')
       .attr('dy', '-0.75em')
-      .attr('class', 'chart-percent')
+      .attr('class', 'chart__value')
       .attr('text-anchor', 'middle')
       .text((d) => `${this.data.percent}%`);
 
@@ -104,6 +114,7 @@ export class DonutComponent implements OnChanges {
   }
 
   ngOnChanges(changes): void {
+    console.log('CHANGES', changes)
     this.render();
   }
 }

@@ -1,26 +1,34 @@
 @import "../node_modules/bootstrap/scss/variables";
 
+$fill-colors: #009688 #8BC34A #F44336 #E040FB #3F51B5 #FF5722 #FFEB3B #607D8B #CDDC39 #00BCD4
+              #C2185B #4CAF50 #03A9F4;
+
 .chart {
   padding: 0 1em;
 
-  .chart-bg {
+  .chart__arc--bg {
     fill: $gray-lightest;
   }
 
-  .chart-fg {
-    fill: #345995;
+  .chart__bg--default {
+    fill: $white;
   }
 
-  .chart-percent {
+  .chart__value {
     font-size: $font-size-lg;
   }
 
-  &:nth-of-type(1) .chart-fg { fill: #345995 }
-  &:nth-of-type(2) .chart-fg { fill: #EAC435 }
-  &:nth-of-type(3) .chart-fg { fill: #E40066 }
-  &:nth-of-type(4) .chart-fg { fill: #03CEA4 }
-  &:nth-of-type(5) .chart-fg { fill: #FB4D3D }
-  &:nth-of-type(6) .chart-fg { fill: #EB5E28 }
-  &:nth-of-type(7) .chart-fg { fill: #A1C349 }
-  &:nth-of-type(8) .chart-fg { fill: #440381 }
+  @each $fill-color in $fill-colors {
+    $i: index($fill-colors, $fill-color);
+    &:nth-of-type(#{$i}) {
+      .chart__bg {
+        fill: $fill-color;
+        opacity: .025;
+      }
+
+      .chart__arc--fg {
+        fill: $fill-color;
+      }
+    }
+  }
 }

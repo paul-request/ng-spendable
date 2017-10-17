@@ -28,9 +28,7 @@ export class TransactionChartComponent implements OnInit {
   }
 
   sum(acc, transaction) {
-    if (parseInt(transaction.amount, 10) >= 0) return acc;
-
-    return acc + Math.abs(transaction.amount);
+    return acc + Number(transaction.amount);
   }
 
   ngOnInit(): void {
