@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { TransactionService } from './transaction.service';
 import { Transaction } from './transaction';
@@ -17,8 +16,7 @@ export class TransactionsComponent implements OnInit {
   viewList: boolean = true;
 
   constructor(
-    private transactionService: TransactionService,
-    private router: Router
+    private transactionService: TransactionService
   ) {}
 
   ngOnInit(): void {

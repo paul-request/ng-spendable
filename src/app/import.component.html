@@ -4,26 +4,28 @@
       class="form-inline"
       (ngSubmit)="onSubmit()"
       #importForm="ngForm">
-      <label class="custom-file mr-2">
+      <div class="form-group mr-2">
+        <label for="import-file" class="sr-only">Select a bank statement</label>
+
         <input
           type="file"
-          class="custom-file-input"
+          class="form-control"
           name="import-file"
           id="import-file"
           (change)="onChangeFile($event)"
           required>
-        <span class="custom-file-control"></span>
-      </label>
+      </div>
 
-      <div class="form-group">
+      <div class="form-group mr-2">
         <label for="bank-name" class="sr-only">Select a bank</label>
 
         <select
+          class="form-control"
           name="bank-name"
           id="bank-name"
           [(ngModel)]="selectedBank"
           required>
-          <option [ngValue]="selectedBank">-- Select your bank/building society --</option>
+          <option [value]="null">-- Select your bank/building society --</option>
           <option *ngFor="let bank of banks" [value]="bank.value">{{ bank.label }}</option>
         </select>
       </div>

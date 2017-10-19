@@ -5,7 +5,6 @@ import { Donut } from './donut';
 import { Transaction } from './transaction';
 import { CategorisedPipe } from './categorised.pipe';
 import { CONSTANTS } from './constants';
-import * as D3 from 'd3/index';
 
 @Component({
   selector: 'transaction-chart',
@@ -33,12 +32,13 @@ export class TransactionChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.data = this.generateData();
-    this.total = this.transactions.reduce(this.sum, 0);
   }
 
   generateData(): Donut[] {
+    this.total = this.transactions.reduce(this.sum, 0);
+
     return this.categories.reduce((acc, { label, value }) => {
-      const transactions = this.transactions.filter(transaction => transaction.category === value)
+      const transactions = this.transactions.filter(transaction => transaction.category === value);
       const categoryTotal = transactions.reduce(this.sum, 0);
       const percent = (categoryTotal / this.total) * 100;
       const displayPercent = percent % 1 !== 0 ? percent.toFixed(2) : percent;
@@ -56,6 +56,9 @@ export class TransactionChartComponent implements OnInit {
   }
 
   ngOnChanges(): void {
-    this.data = this.generateData();
+    // Only uopdate if the user is actually looking at this view
+    if (!this.viewList) {
+      this.data = this.generateData();
+    }
   }
 }

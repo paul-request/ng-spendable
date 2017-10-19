@@ -27,6 +27,7 @@ export class ImportComponent {
     private uuid: Uuid
   ) {
     this.banks = [...CONSTANTS.BANKS];
+    this.selectedBank = null;
   }
 
   onChangeFile(event: any) {

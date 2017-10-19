@@ -1,16 +1,21 @@
 export const CONSTANTS = {
   UNKNOWN_CATEGORY: 'UNKNOWN',
   DATE_FORMAT: 'DD/MM/YYYY',
+  MONTH_DISPLAY_FORMAT: 'MMMM YYYY',
+  MONTH_INDEX_FORMAT: 'M-YYYY',
   TRANSACTION_CATEGORIES: [
     { label: 'Unknown', value: 'UNKNOWN' },
-    { label: 'Mortgage', value: 'MORTAGE' },
-    { label: 'Bills', value: 'BILLS' },
+    { label: 'Mortgage repayments', value: 'MORTAGE' },
+    { label: 'Bills and utilities', value: 'BILLS' },
     { label: 'Savings', value: 'SAVINGS' },
-    { label: 'Car', value: 'CAR' },
-    { label: 'Insurance', value: 'INSURANCE' },
-    { label: 'Hobbies', value: 'HOBBIES' },
+    { label: 'Cash withdrawal', value: 'CASH' },
+    { label: 'Insurances', value: 'INSURANCE' },
+    { label: 'Hobbies and activities', value: 'HOBBIES' },
     { label: 'Fashion', value: 'FASHION' },
-    { label: 'Travel', value: 'TRAVEL' }
+    { label: 'Travel', value: 'TRAVEL' },
+    { label: 'Gambling', value: 'GAMBLING' },
+    { label: 'Credit card payments', value : 'CREDIT_CARD' },
+    { label: 'IOU payment', value: 'IOU' }
   ],
   BANKS: [
     { label: 'Nationwide', value: 'NATIONWIDE' }

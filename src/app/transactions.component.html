@@ -1,9 +1,7 @@
 <div *ngIf="transactions && transactions.length">
   <transactions-nav
     [transactions]="transactions"
-    [viewCategorised]="viewCategorised"
     [viewList]="viewList"
-    (onToggleCategorised)="onToggleCategorised($event)"
     (onToggleListView)="onToggleListView($event)">
   </transactions-nav>
 
@@ -11,7 +9,8 @@
     <transaction-list
       [transactions]="transactions"
       [viewCategorised]="viewCategorised"
-      [viewList]="viewList">
+      [viewList]="viewList"
+      (onToggleCategorised)="onToggleCategorised($event)">
     </transaction-list>
 
     <transaction-chart

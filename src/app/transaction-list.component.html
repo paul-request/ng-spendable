@@ -1,4 +1,26 @@
 <div *ngIf="!!viewList">
+  <ul class="nav nav-pills mb-5">
+    <li class="nav-item">
+      <a
+        href="#"
+        class="nav-link"
+        [ngClass]="{'active': viewCategorised}"
+        (click)="toggleCategorised($event)">
+        Categorised <span class="badge" [ngClass]="{ 'badge-primary': !viewCategorised, 'nav-link__badge--selected': viewCategorised }">{{ count.categorised }}</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a
+        href="#"
+        class="nav-link"
+        [ngClass]="{'active': !viewCategorised}"
+        (click)="toggleCategorised($event)">
+        Uncategorised <span class="badge" [ngClass]="{ 'badge-primary': viewCategorised, 'nav-link__badge--selected': !viewCategorised }">{{ count.uncategorised }}</span>
+      </a>
+    </li>
+  </ul>
+
   <table class="table table-striped">
     <thead class="sr-only">
       <tr>

@@ -2,27 +2,19 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <ul class="nav nav-pills" *ngIf="viewList">
-          <li class="nav-item">
-            <a
-              href="#"
-              class="nav-link"
-              [ngClass]="{'active': viewCategorised}"
-              (click)="toggleCategorised($event)">
-              Categorised <span class="badge" [ngClass]="{ 'badge-primary': !viewCategorised, 'nav-link__badge--selected': viewCategorised }">{{ count.categorised }}</span>
-            </a>
-          </li>
+        <div class="form-inline">
+          <label for="transaction-period" class="mr-2">Filter by month</label>
 
-          <li class="nav-item">
-            <a
-              href="#"
-              class="nav-link"
-              [ngClass]="{'active': !viewCategorised}"
-              (click)="toggleCategorised($event)">
-              Uncategorised <span class="badge" [ngClass]="{ 'badge-primary': viewCategorised, 'nav-link__badge--selected': !viewCategorised }">{{ count.uncategorised }}</span>
-            </a>
-          </li>
-        </ul>
+          <select
+            id="transaction-period"
+            id="name"
+            class="form-control"
+            [(ngModel)]="selectedPeriod"
+            (change)="onChangePeriod()">
+            <option [ngValue]="null">All</option>
+            <option *ngFor="let month of periodData" [value]="month.value">{{ month.label }}</option>
+          </select>
+        </div>
       </div>
 
       <div class="col">

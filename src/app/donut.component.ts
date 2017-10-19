@@ -21,12 +21,12 @@ export class DonutComponent implements OnChanges {
   foreground: any;
   width: number;
   height: number;
+  textOffset: number;
   radius: number;
   arc: any;
   donutWidth: number;
   animationDuration: number;
   tau: number;
-  dataset: Donut[];
 
   constructor(
     private element: ElementRef
@@ -38,6 +38,7 @@ export class DonutComponent implements OnChanges {
     this.animationDuration = 1000;
     this.width = 150;
     this.height = 150;
+    this.textOffset = 50;
     this.radius = Math.min(this.width, this.height) / 2;
     this.donutWidth = 8;
     this.arc = D3.arc()
@@ -65,7 +66,7 @@ export class DonutComponent implements OnChanges {
       .attr('width', this.width)
       .attr('height', this.height);
 
-    const g = svg.append("g")
+    const g = svg.append('g')
       .attr('transform', `translate(${this.width / 2},${this.height / 2})`);
 
     const background = g.append('circle')
@@ -78,27 +79,39 @@ export class DonutComponent implements OnChanges {
       background.attr('class', 'chart__bg--default');
     }
 
-    const backgroundArc = g.append("path")
+    const backgroundArc = g.append('path')
       .datum({ endAngle: this.tau })
       .attr('class', 'chart__arc--bg')
-      .attr("d", this.arc);
+      .attr('d', this.arc);
 
-    this.foreground = g.append("path")
+    this.foreground = g.append('path')
       .datum({ endAngle: 0 })
       .attr('class', 'chart__arc--fg')
       .attr("d", this.arc);
 
     this.percentText = g.append('text')
-      .attr('dy', '-0.75em')
+      .attr('dy', '-0.5em')
       .attr('class', 'chart__value')
       .attr('text-anchor', 'middle')
       .text((d) => `${this.data.percent}%`);
 
-    this.labelText = g.append('text')
-      .attr('dy', '0.75em')
-      .attr('class', 'chart-label')
-      .attr('text-anchor', 'middle')
+    // TODO: need to work out how to wrap text? Split words into tspans perhaps?
+    this.labelText = g.append('foreignObject')
+      .attr('dy', '0.5em')
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('width', this.width - this.textOffset)
+      .attr('height', this.height - this.textOffset)
+      .attr('transform', `translate(-${this.textOffset},0)`)
+      .append('xhtml:div')
+      .attr('style', 'text-align: center; font-size: 0.875rem; line-height: 1rem;')
       .text((d) => `${this.data.label}`);
+      // .text((d) => `${this.data.label}`);
+
+    // this.data.label.split(' ').forEach(word => {
+    //   this.labelText.append('tspan')
+    //     .text(`${word} `);
+    // });
 
     this.foreground
       .transition()
@@ -106,15 +119,7 @@ export class DonutComponent implements OnChanges {
       .attrTween('d', this.arcTween(endAngle));
   }
 
-  update(): void {
-    const endAngle = (this.data.percent / 100) * this.tau;
-
-    this.percentText.text((d) => `${this.data.count}`);
-    this.foreground.attrTween('d', this.arcTween(endAngle));
-  }
-
   ngOnChanges(changes): void {
-    console.log('CHANGES', changes)
     this.render();
   }
 }

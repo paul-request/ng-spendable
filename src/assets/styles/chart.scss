@@ -18,6 +18,11 @@ $fill-colors: #009688 #8BC34A #F44336 #E040FB #3F51B5 #FF5722 #FFEB3B #607D8B #C
     font-size: $font-size-lg;
   }
 
+  .chart__label {
+    white-space: normal;
+    text-align: center;;
+  }
+
   @each $fill-color in $fill-colors {
     $i: index($fill-colors, $fill-color);
     &:nth-of-type(#{$i}) {

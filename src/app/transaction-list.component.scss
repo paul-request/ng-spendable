@@ -1,0 +1,6 @@
+@import "../../node_modules/bootstrap/scss/variables";
+
+.nav-link__badge--selected {
+  color: $link-color;
+  background: $white;
+}

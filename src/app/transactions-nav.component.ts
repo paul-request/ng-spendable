@@ -1,42 +1,52 @@
 import { Component, EventEmitter, Input, Output , OnInit, SimpleChange } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { TransactionService } from './transaction.service';
 import { Transaction } from './transaction';
+import { CONSTANTS } from './constants';
 
-import { CategorisedPipe } from './categorised.pipe';
+import moment from 'moment/src/moment';
 
 @Component({
   selector: 'transactions-nav',
   templateUrl: './transactions-nav.component.html',
-  styleUrls: [ './transactions-nav.component.scss' ],
-  providers: [ CategorisedPipe ]
+  styleUrls: [ './transactions-nav.component.scss' ]
 })
 export class TransactionsNavComponent implements OnInit {
   @Input() transactions: Transaction[];
-  @Input() viewCategorised: boolean;
   @Input() viewList: boolean;
 
-  @Output() onToggleCategorised = new EventEmitter<boolean>();
   @Output() onToggleListView = new EventEmitter<boolean>();
 
-  count = {
-    categorised: <number>0,
-    uncategorised: <number>0
-  };
+  periodData: string[];
+  selectedPeriod: any;
 
   constructor(
-    private categorised: CategorisedPipe
-  ) {}
-
-  ngOnInit(): void {
-    this.count.categorised = this.categorised.transform(this.transactions).length;
-    this.count.uncategorised = this.transactions.length - this.count.categorised;
+    private transactionService: TransactionService
+  ) {
+    this.selectedPeriod = null;
   }
 
-  toggleCategorised(event: Event): void {
-    event.preventDefault();
+  ngOnInit(): void {
+    this.periodData = this.generateMonthData();
+  }
 
-    this.onToggleCategorised.emit(!this.viewCategorised);
+  includesMonth(arr, month) {
+    return !!arr.filter(m => m.label === month).length;
+  }
+
+  generateMonthData(): any[] {
+    return this.transactions.reduce((acc, transaction) => {
+      const label = transaction.date.format(CONSTANTS.MONTH_DISPLAY_FORMAT);
+      const value = moment(transaction.date);
+
+      if (this.includesMonth(acc, label)) return [ ...acc ];
+
+      return [
+        ...acc,
+        { label, value }
+      ]
+    }, []);
   }
 
   toggleListView(event: Event): void {
@@ -45,10 +55,11 @@ export class TransactionsNavComponent implements OnInit {
     this.onToggleListView.emit(!this.viewList);
   }
 
-  ngOnChanges({ transactions }) {
-    if (!!transactions) {
-      this.count.categorised = this.categorised.transform(transactions.currentValue).length;
-      this.count.uncategorised = transactions.currentValue.length - this.count.categorised;
+  onChangePeriod(): void {
+    if (!!this.selectedPeriod) {
+      this.transactionService.filterByMonth(this.selectedPeriod);
+    } else {
+      this.transactionService.reset();
     }
   }
 }
