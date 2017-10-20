@@ -52,7 +52,11 @@ export class TransactionChartComponent implements OnInit {
           total: categoryTotal
         }
       ];
-    }, []);
+    }, []).sort((a, b) => {
+      if(a.percent < b.percent) return 1;
+      if(a.percent > b.percent) return -1;
+      return 0;
+    });
   }
 
   ngOnChanges(): void {

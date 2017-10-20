@@ -2,6 +2,7 @@
 
 $fill-colors: #009688 #8BC34A #F44336 #E040FB #3F51B5 #FF5722 #FFEB3B #607D8B #CDDC39 #00BCD4
               #C2185B #4CAF50 #03A9F4;
+$length: length($fill-colors);
 
 .chart {
   padding: 0 1em;
@@ -25,7 +26,7 @@ $fill-colors: #009688 #8BC34A #F44336 #E040FB #3F51B5 #FF5722 #FFEB3B #607D8B #C
 
   @each $fill-color in $fill-colors {
     $i: index($fill-colors, $fill-color);
-    &:nth-of-type(#{$i}) {
+    &:nth-of-type(#{$length}n+#{$i}) {
       .chart__bg {
         fill: $fill-color;
         opacity: .025;

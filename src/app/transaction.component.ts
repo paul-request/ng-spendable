@@ -14,9 +14,17 @@ import { CONSTANTS } from './constants';
 export class TransactionComponent {
   @Input() transaction: Transaction;
 
-  categories = CONSTANTS.TRANSACTION_CATEGORIES;
+  categories: any[];
 
-  constructor(private transactionService: TransactionService) {}
+  constructor(
+    private transactionService: TransactionService
+  ) {
+    this.categories = [...CONSTANTS.TRANSACTION_CATEGORIES].sort((a, b) => {
+      if(a.value < b.value) return -1;
+      if(a.value > b.value) return 1;
+      return 0;
+    });
+  }
 
   changeCategory(transaction: Transaction): void {
     this.transactionService.update(transaction);
